@@ -8,10 +8,11 @@ const Stack = createStackNavigator();
 function MyStack() {
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerShown:false,
-        
-      }} initialRouteName={"Home"}>
+    screenOptions={{
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }}initialRouteName={"Home"}>
       <Stack.Screen name="Home" component={HomeScreen}  options={{ title: 'Picture of the day' }} />
       <Stack.Screen name="Detail" component={DetailScreen} />
       </Stack.Navigator>
