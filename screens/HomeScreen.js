@@ -1,21 +1,31 @@
-import { Text, View, StyleSheet,FlatList,Image } from "react-native";
+import { Text, View, StyleSheet,FlatList,Image,TouchableOpacity } from "react-native";
 import { TextInput } from 'react-native-paper';
 import Button from "../componets/Button";
 import { GlobalStyles } from "../constants/style";
 import React, { useEffect, useState } from "react";
+import Axios from 'axios';
+import { fetchPictures } from "../util/http";
 
-function HomeScreen() {
+
+function HomeScreen({navigation}) {
     const [dataSource, setDataSource] = useState([]);
- 
-    useEffect(() => {
-      let items = Array.apply(null, Array(9)).map((v, i) => {
-        return {
-          id: i,
-          src: 'http://via.placeholder.com/200x200?text=' + (i + 1)
-        };
-      });
-      setDataSource(items);
-    }, []);
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    // const [isLoading, setLoading] = useState(true);
+    // useEffect(() => {
+    //    async function getDayPictures(){
+    //    const res = await fetchPictures();
+    //    setDataSource(res.data)
+    //    console.log(res.data)
+    //     }
+    //    getDayPictures();
+    //   }, []);
+      function actionOnRow(item) {
+        navigation.navigate('Detail', {data: item});
+     }
+     function actionOnSearch() {
+        navigation.navigate('Detail', {data: item});
+     }
     return (<View style={styles.container}>
         <Text style={styles.heading}>Picture of the day:</Text>
         <Text style={styles.subheading}>Search for Astronomy: Picture of the day by date.</Text>
@@ -23,20 +33,25 @@ function HomeScreen() {
         fontFamily = "Inter-Regular"
         underlineColor = {GlobalStyles.colors.moonDust50}
         label="Start Date"
+        value={startDate}
+        onChange= {setStartDate}
       
       />
         <TextInput style={styles.input}
         underlineColor = {GlobalStyles.colors.moonDust50}
         fontFamily = "Inter-Regular"
         label="End Date"
+        value={endDate}
+        onChange= {setEndDate}
       />
       <Button>Search</Button>
-      <Text style={styles.result}>Results(0):</Text>
+      <Text style={styles.result}>Results({dataSource.length}):</Text>
       
       {dataSource.length > 0 ? 
       <FlatList
       data={dataSource}
       renderItem={({item}) => (
+        <TouchableOpacity onPress={ () => actionOnRow(item)}>
         <View
           style={{
             flex: 1,
@@ -45,9 +60,10 @@ function HomeScreen() {
           }}>
           <Image
             style={styles.imageThumbnail}
-            source={{uri: item.src}}
+            source={{uri: item.url}}
           />
         </View>
+        </TouchableOpacity>
       )}
       //Setting the number of column
       numColumns={3}
