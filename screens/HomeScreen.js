@@ -9,23 +9,21 @@ import { fetchPictures } from "../util/http";
 
 function HomeScreen({navigation}) {
     const [dataSource, setDataSource] = useState([]);
-    const [startDate, setStartDate] = useState("");
+    const [startDate, setStartDate] = useState("2022-08-15");
     const [endDate, setEndDate] = useState("");
-    // const [isLoading, setLoading] = useState(true);
-    // useEffect(() => {
-    //    async function getDayPictures(){
-    //    const res = await fetchPictures();
-    //    setDataSource(res.data)
-    //    console.log(res.data)
-    //     }
-    //    getDayPictures();
-    //   }, []);
+    const [isLoading, setIsLoading] = useState(false);
+    const baseUrl = 'https://api.nasa.gov/planetary/apod';
+
+    async function handleClick() {
+              setIsLoading(true);
+               const res = await fetchPictures(startDate,endDate);
+               setDataSource(res.data)
+               setIsLoading(false);
+      }
       function actionOnRow(item) {
         navigation.navigate('Detail', {data: item});
      }
-     function actionOnSearch() {
-        navigation.navigate('Detail', {data: item});
-     }
+
     return (<View style={styles.container}>
         <Text style={styles.heading}>Picture of the day:</Text>
         <Text style={styles.subheading}>Search for Astronomy: Picture of the day by date.</Text>
@@ -34,7 +32,7 @@ function HomeScreen({navigation}) {
         underlineColor = {GlobalStyles.colors.moonDust50}
         label="Start Date"
         value={startDate}
-        onChange= {setStartDate}
+        onChangeText={text => setStartDate(text)}
       
       />
         <TextInput style={styles.input}
@@ -42,9 +40,9 @@ function HomeScreen({navigation}) {
         fontFamily = "Inter-Regular"
         label="End Date"
         value={endDate}
-        onChange= {setEndDate}
+        onChangeText={text => setEndDate(text)}
       />
-      <Button>Search</Button>
+      <Button onPress={handleClick}>Search</Button>
       <Text style={styles.result}>Results({dataSource.length}):</Text>
       
       {dataSource.length > 0 ? 
