@@ -1,5 +1,6 @@
 import { Text, View, StyleSheet } from "react-native";
 import { TextInput } from 'react-native-paper';
+import Button from "../componets/Button";
 
 function HomeScreen() {
     return (<View>
@@ -11,8 +12,10 @@ function HomeScreen() {
       />
         <TextInput
         label="End Date"
-        style={styles.input}
       />
+      <Button>Search</Button>
+      <Text>Results(0):</Text>
+      <Text>No results found. Enter a start and end date.</Text>
     </View>);
 }
 const styles = StyleSheet.create({
