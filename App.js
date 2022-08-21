@@ -11,8 +11,13 @@ function MyStack() {
   return (
     <Stack.Navigator
     screenOptions={{
+      headerTitleAlign: 'center',
+      headerShadowVisible: false, // applied here
+      headerBackTitleVisible: false,
       headerTitleStyle: {
         fontWeight: 'bold',
+        fontSize: 20,
+       
       },
     }}initialRouteName={"Home"}>
       <Stack.Screen name="Home" component={HomeScreen}  options={{ title: 'Picture of the day' }} />
@@ -23,7 +28,12 @@ function MyStack() {
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    'Inter-Black': require('./assets/fonts/SF-Pro.ttf'),
+    'SF-Pro-Regular': require('./assets/fonts/SFPRODISPLAYREGULAR.OTF'),
+    'SF-Pro-Medium': require('./assets/fonts/SFPRODISPLAYMEDIUM.OTF'),
+    'SF-Pro-Bold': require('./assets/fonts/SFPRODISPLAYBOLD.OTF'),
+    'Inter-Regular': require('./assets/fonts/Inter-Regular.otf'),
+    'Inter-Semi-Bold': require('./assets/fonts/Inter-SemiBold.otf'),
+    'Inter-Bold': require('./assets/fonts/Inter-Bold.otf'),
   });
   return (
     <View style={styles.container}>
@@ -38,6 +48,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: GlobalStyles.colors.Primary,
+    backgroundColor: GlobalStyles.colors.moonDust0,
   },
 });

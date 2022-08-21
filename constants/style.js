@@ -5,6 +5,7 @@ export const GlobalStyles = {
       moonDust700: '#2B3855',
       moonDust500: '#5F6E91',
       moonDust50: '#F7F9FC',
+      moonDust0: '#FFFFFF',
       Primary: '#F5F5F5',
     },
   };

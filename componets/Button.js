@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 5,
     borderWidth: 2,
-    padding: 12,
+    padding: 10,
     width: "100%",
     borderColor: GlobalStyles.colors.moonDust500,
     backgroundColor: GlobalStyles.colors.moonDust50,
@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: GlobalStyles.colors.moonDust700,
-    fontSize : 18,
+    fontFamily: 'SF-Pro-Medium', 
+    fontSize: 16,
     textAlign: 'center',
   },
   flatText: {
