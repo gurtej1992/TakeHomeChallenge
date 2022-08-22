@@ -12,12 +12,17 @@ Use the npm to install the dependencies.
 npm install
 ```
 
-## Start Project
+## Run Project
 
 ```python
 expo start
 ```
-
+Finally, run in iOS Simulator Press `i`
+## Test Case
+To run test cases in project
+```python
+npm test
+```
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
