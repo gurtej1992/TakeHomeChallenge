@@ -1,47 +1,79 @@
-import { Text, View, StyleSheet, FlatList, Image, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, FlatList, Image, TouchableOpacity, Alert } from "react-native";
 import { TextInput } from 'react-native-paper';
 import Button from "../componets/Button";
 import { GlobalStyles } from "../constants/style";
-import React, { useEffect, useState } from "react";
-import Axios from 'axios';
+import React, {Component,useState} from 'react';
 import { fetchPictures } from "../util/http";
+import { validateDate } from "../util/validation";
 
 
 function HomeScreen({ navigation }) {
     const [dataSource, setDataSource] = useState([]);
     const [startDate, setStartDate] = useState("2022-08-15");
-    const [endDate, setEndDate] = useState("");
+    const [endDate, setEndDate] = useState("2022-08-20");
     const [isLoading, setIsLoading] = useState(false);
-    const baseUrl = 'https://api.nasa.gov/planetary/apod';
 
     async function handleClick() {
-        setIsLoading(true);
+      if(validateDate(startDate) && validateDate(endDate)){
+        var dateStart = new Date(startDate);
+        var dateEnd = new Date(endDate);
+        if(dateEnd.getTime() >= dateStart.getTime()){
+         setIsLoading(true);
         const res = await fetchPictures(startDate, endDate);
         setDataSource(res.data)
         setIsLoading(false);
+        }
+        else{
+          Alert.alert(
+            "Date Error",
+            "End date cannot be smaller than start date.",
+            [
+              {
+                text: "Okay",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+              }
+            ]
+          );
+        }
+      }
+      else{
+        Alert.alert(
+          "Date Error",
+          "Date should be in YYYY-MM-DD format.",
+          [
+            {
+              text: "Okay",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            }
+          ]
+        );
+      }
+       
     }
     function actionOnRow(item) {
         navigation.navigate('Detail', { data: item });
     }
-
+   
     return (<View style={styles.container}>
         <Text style={styles.heading}>Picture of the day:</Text>
         <Text style={styles.subheading}>Search for Astronomy: Picture of the day by date.</Text>
         <TextInput style={styles.input}
-            fontFamily="Inter-Regular"
             underlineColor={GlobalStyles.colors.moonDust50}
             label="Start Date"
             value={startDate}
+            onFocus = {() => setOpen(true)}
             onChangeText={text => setStartDate(text)}
 
         />
         <TextInput style={styles.input}
             underlineColor={GlobalStyles.colors.moonDust50}
-            fontFamily="Inter-Regular"
             label="End Date"
             value={endDate}
             onChangeText={text => setEndDate(text)}
         />
+
         <Button onPress={handleClick}>Search</Button>
         <Text style={styles.result}>Results({dataSource.length > 0 ? dataSource.length : 0}):</Text>
 
@@ -80,7 +112,6 @@ const styles = StyleSheet.create({
         backgroundColor: GlobalStyles.colors.moonDust0,
     },
     heading: {
-        fontFamily: 'Inter-Semi-Bold',
         fontSize: 18,
         marginBottom: 10,
         color: GlobalStyles.colors.moonDust900,
@@ -88,23 +119,18 @@ const styles = StyleSheet.create({
     subheading: {
         fontFamily: 'SF-Pro-Regular',
         fontSize: 14,
-        //fontWeight: 0.4,
         marginBottom: 10,
         color: GlobalStyles.colors.moonDust900,
     },
     result: {
         marginTop: 20,
-        fontFamily: 'Inter-Regular',
         fontSize: 16,
-        //fontWeight: 0.6,
         marginBottom: 10,
         color: GlobalStyles.colors.moonDust700,
     },
     noResult: {
         marginTop: 10,
-        fontFamily: 'Inter-Regular',
         fontSize: 16,
-        //fontWeight: 0.4,
         marginBottom: 10,
         color: GlobalStyles.colors.moonDust900,
     },

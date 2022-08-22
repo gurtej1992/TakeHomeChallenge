@@ -1,5 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect, useCallback } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -30,20 +32,23 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     'SF-Pro-Regular': require('./assets/fonts/SF-Pro-Regular.otf'),
     'SF-Pro-Medium': require('./assets/fonts/SF-Pro-Medium.otf'),
-    'SF-Pro-Bold': require('./assets/fonts/SF-Pro-Bold.otf'),
-    'Inter-Regular': require('./assets/fonts/Inter-Regular.otf'),
-    'Inter-Semi-Bold': require('./assets/fonts/Inter-SemiBold.otf'),
-    'Inter-Bold': require('./assets/fonts/Inter-Bold.otf'),
+    'SF-Pro-Bold': require('./assets/fonts/SF-Pro-Bold.otf')
   });
-  if (fontsLoaded) {
+
+  if (!fontsLoaded) {
     return (
-      <View style={styles.container}>
-        <StatusBar style="dark" />
-        <NavigationContainer>
-          <MyStack></MyStack>
-        </NavigationContainer>
-      </View>
-    );
+      null
+    )
+  } else {
+ 
+      return (
+        <View style={styles.container}>
+          <StatusBar style="dark" />
+          <NavigationContainer>
+            <MyStack></MyStack>
+          </NavigationContainer>
+        </View>
+      );
   }
  
 }

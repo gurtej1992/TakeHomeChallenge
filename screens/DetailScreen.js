@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
       decription: {
         flex : 1,
         margin: 15,
-        fontFamily: 'Inter-Regular', 
         fontSize: 16,
         //fontWeight:0.4,
         marginBottom: 10,
