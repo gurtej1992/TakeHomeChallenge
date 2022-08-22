@@ -11,19 +11,19 @@ function HomeScreen({ navigation }) {
     const [dataSource, setDataSource] = useState([]);
     const [startDate, setStartDate] = useState("2022-08-15");
     const [endDate, setEndDate] = useState("2022-08-20");
-    const [isLoading, setIsLoading] = useState(false);
 
     async function handleClick() {
+      //Validating dates
       if(validateDate(startDate) && validateDate(endDate)){
         var dateStart = new Date(startDate);
         var dateEnd = new Date(endDate);
         if(dateEnd.getTime() >= dateStart.getTime()){
-         setIsLoading(true);
+          //Calling API
         const res = await fetchPictures(startDate, endDate);
         setDataSource(res.data)
-        setIsLoading(false);
         }
         else{
+          //Showing alert if end date is smaller than start date
           Alert.alert(
             "Date Error",
             "End date cannot be smaller than start date.",
@@ -38,6 +38,7 @@ function HomeScreen({ navigation }) {
         }
       }
       else{
+        //Showing alert if date is not in valid format
         Alert.alert(
           "Date Error",
           "Date should be in YYYY-MM-DD format.",
@@ -52,6 +53,7 @@ function HomeScreen({ navigation }) {
       }
        
     }
+    // On clicking the image item moving to detail screen
     function actionOnRow(item) {
         navigation.navigate('Detail', { data: item });
     }
