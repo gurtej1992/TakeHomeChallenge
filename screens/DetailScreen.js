@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 
 function DetailScreen({route,navigation}) {
     const { data } = route.params
+    //Updating title
     useEffect(() => {
         navigation.setOptions({
           title: data.title,
@@ -31,7 +32,6 @@ const styles = StyleSheet.create({
         flex : 1,
         margin: 15,
         fontSize: 16,
-        //fontWeight:0.4,
         marginBottom: 10,
         color: GlobalStyles.colors.moonDust900,
       },
