@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         margin: 15,
         fontFamily: 'Inter-Regular', 
         fontSize: 16,
-        fontWeight:400,
+        //fontWeight:0.4,
         marginBottom: 10,
         color: GlobalStyles.colors.moonDust900,
       },

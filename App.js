@@ -10,39 +10,42 @@ const Stack = createStackNavigator();
 function MyStack() {
   return (
     <Stack.Navigator
-    screenOptions={{
-      headerTitleAlign: 'center',
-      headerShadowVisible: false, // applied here
-      headerBackTitleVisible: false,
-      headerTitleStyle: {
-        fontWeight: 'bold',
-        fontSize: 20,
-       
-      },
-    }}initialRouteName={"Home"}>
-      <Stack.Screen name="Home" component={HomeScreen}  options={{ title: 'Picture of the day' }} />
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerShadowVisible: false, // applied here
+        headerBackTitleVisible: false,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          fontSize: 20,
+
+        },
+      }} initialRouteName={"Home"}>
+      <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Picture of the day' }} />
       <Stack.Screen name="Detail" component={DetailScreen} />
-      </Stack.Navigator>
+    </Stack.Navigator>
   );
 }
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    'SF-Pro-Regular': require('./assets/fonts/SFPRODISPLAYREGULAR.OTF'),
-    'SF-Pro-Medium': require('./assets/fonts/SFPRODISPLAYMEDIUM.OTF'),
-    'SF-Pro-Bold': require('./assets/fonts/SFPRODISPLAYBOLD.OTF'),
+    'SF-Pro-Regular': require('./assets/fonts/SF-Pro-Regular.otf'),
+    'SF-Pro-Medium': require('./assets/fonts/SF-Pro-Medium.otf'),
+    'SF-Pro-Bold': require('./assets/fonts/SF-Pro-Bold.otf'),
     'Inter-Regular': require('./assets/fonts/Inter-Regular.otf'),
     'Inter-Semi-Bold': require('./assets/fonts/Inter-SemiBold.otf'),
     'Inter-Bold': require('./assets/fonts/Inter-Bold.otf'),
   });
-  return (
-    <View style={styles.container}>
-    <StatusBar style="dark" />
-    <NavigationContainer>
-      <MyStack></MyStack>
-    </NavigationContainer>
-  </View>
-  );
+  if (fontsLoaded) {
+    return (
+      <View style={styles.container}>
+        <StatusBar style="dark" />
+        <NavigationContainer>
+          <MyStack></MyStack>
+        </NavigationContainer>
+      </View>
+    );
+  }
+ 
 }
 
 const styles = StyleSheet.create({
